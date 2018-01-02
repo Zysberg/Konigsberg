@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://rawgit.com/andreasplesch/aframe-meshline-component/master/dist/aframe-meshline-component.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    <script src="FileSaver.min.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <!--<div class= "mdmd">
+    </div> .class #id-->
+    <a-scene class="aframebox" embedded>
+        <a-sky color="#87CEFA"></a-sky>
+        <a-plane rotation="-90 0 0" visible="false" width="255" height="255" color="#7BC8A4"></a-plane>
+        <a-entity id="axis" visible="false">
+            <a-box id="green" color="green" position="0 0 0" rotation="90 0 0" scale=".1 .1 255" visible="" material="" geometry=""> </a-box>
+            <a-box color="red" position="0 0 0" rotation="0 90 0" scale=".1 .1 255" visible="" material="" geometry=""> </a-box>
+            <a-box color="blue" position="0 0 0" rotation="0 0 90" scale=".1 .1 255" visiblie="" material="" geometry=""></a-box>
+        </a-entity>
+        <a-entity id="graph"> </a-entity>
+        <a-entity position="0 0 0">
+            <a-camera wasd-controls="easing: 10; fly: true">
+                <a-cursor></a-cursor>
+            </a-camera>
+        </a-entity>
+    </a-scene>
+    <div id="menu">
+        <div id="build">
+            <button type="button" onclick="addNode(null,'',null)">Add Node</button>
+            <button type="button" onclick="toggleDelete()">Delete Node</button>
+            <button type="button">Undo [Doesn't Work]</button>
+            <button type="button">Redo [Doesn't Work]</button>
+        </div>
+        <div>
+            <button type="button" onclick="genTextFile()">Export This Graph</button>
+            <button type="button" onclick="toggleXYZ()">Toggle X|Y|Z </button>
+            <button type="button" onclick="toggleGrnd()">Toggle Ground </button>
+        </div>
+        <div id='Import'>
+            <button type="button" onclick="showUploadButton()">Import New Graph [Doesn't Work]</button>
+            <input type="file" class ="showAfterClick" id="openFile" onchange="impTextFile()" />
+        </div>
+    </div>
+    <div> <pre id="fileContents">
+    </pre> </div>
+</body>
+
+</html>

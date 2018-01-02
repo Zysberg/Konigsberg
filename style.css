@@ -1,0 +1,48 @@
+.mdmd{
+    background-color: aquamarine;
+    width:100px;
+    height:100px;
+    z-index:10;
+    position:relative;
+}
+.aframebox{
+    height:600px;
+    width:100%;
+    top:0px;
+
+}
+
+#menu{
+    text-align: center;
+    top:10px;
+    position:relative;
+}
+
+#JSONobj{
+    top:15px;
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:35%;
+    height:80px;
+    resize:both;
+}
+
+#{
+    top:10px;
+    text-align:center;
+    display:block;
+    position:absolute;
+}
+
+#Import{
+    display:inline;
+}
+#Import>*{
+    display:inline-block;
+}
+
+.showAfterClick{
+    visibility:hidden;
+}
