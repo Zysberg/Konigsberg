@@ -29,7 +29,7 @@ Click on the delete button. When you hover over a node, it should highlight red.
 - Name-tagging for each node
 - Animations depicting directionality of edges
 - Draggable re-adjusting for nodes
-- Implementing self-loops and subgraphs
+- Implementing self-loops and k-hypergraphs
 - Undo and Redo buttons
 - Highlighting for shortest-path tree and minimum-spanning trees
 - Implementing Four Color Theorem
