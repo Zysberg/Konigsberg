@@ -3,11 +3,7 @@ var cntEdge = 0;
 var node1 = "";
 var node2 = "";
 var Delete = false;
-var graph = {
-    "nodes": {}
-    , "edges": {}
-};
-
+var graph = {"nodes": {}, "edges": {}};
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
     var color = '#';
@@ -19,7 +15,6 @@ function getRandomColor() {
     }
     return color;
 }
-
 function toggleXYZ() {
     var sceneEl = document.querySelector("a-scene");
     var axisEl = sceneEl.querySelector("#axis");
@@ -31,28 +26,17 @@ function toggleXYZ() {
         axisEl.setAttribute("visible", "true");
     }
 }
-
 function toggleGrnd() {
     var sceneEl = document.querySelector("a-scene");
     var axisEl = sceneEl.querySelector("a-plane");
     var vis = axisEl.getAttribute("visible");
-    if (vis) {
-        axisEl.setAttribute("visible", "false");
-    }
-    else {
-        axisEl.setAttribute("visible", "true");
-    }
+    if (vis) {    axisEl.setAttribute("visible", "false");}
+    else {     axisEl.setAttribute("visible", "true"); }
 }
-
 function toggleDelete() {
-    if (Delete == true) {
-        Delete = false;
-    }
-    else {
-        Delete = true;
-    }
+    if (Delete == true) {       Delete = false;}
+    else {      Delete = true;}
 }
-
 function addNode(name, randColor, pos) {
     cntNode = (name == null) ? ++cntNode : parseInt(name.substr(4));
     name = (name != null) ? name : "node" + cntNode;
@@ -63,23 +47,12 @@ function addNode(name, randColor, pos) {
     pos = (pos == null) ? sceneEl.querySelector('a-camera').getAttribute('position') : pos;
     var node = document.createElement('a-sphere');
     node.setAttribute('id', 'node' + cntNode);
-    node.setAttribute('material', {
-        color: randColor
-    });
-    node.setAttribute('position', {
-        x: pos.x
-        , y: pos.y
-        , z: pos.z
-    });
+    node.setAttribute('color', randColor);
+    node.setAttribute('position', {x: pos.x, y: pos.y, z: pos.z});
     node.setAttribute('radius', '.5');
     node.addEventListener('mouseenter', function () {
-        if (Delete == false) {
-            node.setAttribute('color', '#FFF');
-        }
-        else {
-            node.setAttribute('color', '#ff3f3f')
-        }
-    });
+        if (Delete == false) {    node.setAttribute('color', '#FFF');}
+        else {    node.setAttribute('color', '#ff3f3f')}});
     node.addEventListener('mouseleave', function () {
         node.setAttribute('color', randColor);
     });
@@ -102,13 +75,8 @@ function addNode(name, randColor, pos) {
             }
         }
     });
-    graph["nodes"][name] = {
-        "position": pos
-        , "color": randColor
-    };
     graphEl.appendChild(node);
 }
-
 function addEdge(name, nodeA, nodeB) {
     if (node1 == node2 && name == null) {
         console.log("Cannot make self-loops")
@@ -123,14 +91,13 @@ function addEdge(name, nodeA, nodeB) {
             n1 = document.getElementById(node2).getAttribute('position');
         }
         var edge = document.createElement('a-entity');
-
         edge.setAttribute('meshline', {
             path: n0.x + " " + n0.y + " " + n0.z + " ," + n1.x + " " + n1.y + " " + n1.z
             , lineWidth: 10
             , lineWidthStyler: 1
             , color: '#55575b'
         });
-                edge.addEventListener('mouseenter', function () {
+        edge.addEventListener('mouseenter', function () {
             if (Delete == true) {
                 edge.setAttribute('color', '#ff3f3f');
             }
@@ -138,10 +105,10 @@ function addEdge(name, nodeA, nodeB) {
         edge.addEventListener('mouseleave', function () {
             edge.setAttribute('color', '#55575b');
         });
-        edge.addEventListener('click',function(){
+        edge.addEventListener('click', function () {
             if (Delete == true) {
                 var id = node.getAttribute('id');
-                $('#'+id).remove();
+                $('#' + id).remove();
                 delete graph['edges'][id];
                 Delete = false;
             }
@@ -155,7 +122,6 @@ function addEdge(name, nodeA, nodeB) {
         graphEl.appendChild(edge);
     }
 }
-
 function delAllInstOf(id) {
     var sceneEl = document.querySelector('a-scene');
     var itemsInGraph = document.getElementById('graph').children;
@@ -178,18 +144,16 @@ function delAllInstOf(id) {
         }
     }
 }
-
 function genTextFile() {
+    JSONifyNodes();
     var blob = new Blob([JSON.stringify(graph)], {
         type: "text/plain;charset=utf-8"
     });
     saveAs(blob, "graph.txt");
 }
-
 function showUploadButton() {
     $('.showAfterClick').css("visibility", "visible");
 }
-
 function impTextFile() {
     var fr = new FileReader();
     fr.onload = function () {
@@ -201,7 +165,6 @@ function impTextFile() {
     fr.readAsText(document.getElementById('openFile').files[0]);
     $('.showAfterClick').css("visibility", "hidden");
 }
-
 function processNewGraph() {
     if (graph.hasOwnProperty('edges') && graph.hasOwnProperty('nodes')) {
         $('#graph').empty();
@@ -211,10 +174,21 @@ function processNewGraph() {
         for (edge in graph['edges']) {
             addEdge(edge, graph['edges'][edge]['A'], graph['edges'][edge]['B']);
         }
-        //for all nodes X, addNode(nodeX.color, nodeX.pos)
-        // for all edges Y, addEdge(edgeY.A,edgeY.B)
     }
     else {
         console.log("Improper JSON Object!")
     }
-} //FIXME
+}
+function JSONifyNodes() {
+    var graphEl = document.getElementById('graph');
+    var graphElChildren = graphEl.children;
+    for (var i=0; i<graphElChildren.length;i++){
+        if (graphElChildren[i].getAttribute('id').includes('node')){
+            console.log(graphElChildren[i].getAttribute('color'));
+            graph['nodes'][graphElChildren[i].getAttribute('id')] = {
+                "position":graphElChildren[i].getAttribute('position'),
+                "color":graphElChildren[i].getAttribute("color")
+            }
+        }
+    }
+}
