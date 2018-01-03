@@ -26,5 +26,6 @@ Click on the delete button. When you hover over a node, it should highlight red.
 - Animations depicting directionality of edges
 - Draggable re-adjusting for nodes
 - Implementing Self-Loops and subgraphs
+- Undo and Redo buttons
 - Highlighting for shortest-pathh tree and minimum spanning trees
 - Implementing Four color theorem
