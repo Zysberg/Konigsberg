@@ -30,7 +30,7 @@ Click on the Delete Edge button, white boxes should appear through each edge. Ho
 
 
 #### Future Updates
-- Deleting specific edges
+- ~~Deleting specific edges~~
 - Name-tagging for each node
 - Animations depicting directionality of edges
 - Draggable re-adjusting for nodes
