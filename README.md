@@ -25,6 +25,9 @@ Hover over X, it should be white. Click on X; it should have highlighted green. 
 ###### Deleting a Node
 Click on the delete button. When you hover over a node, it should highlight red. Click on the node to delete it.
 
+###### Deleting an Edge
+Click on the Delete Edge button, white boxes should appear through each edge. Hover over the one you want to delete; it should turn red, then click.
+
 
 #### Future Updates
 - Deleting specific edges
