@@ -3,6 +3,8 @@ var cntEdge = 0;
 var node1 = "";
 var node2 = "";
 var Delete = false;
+var DeleteEdge = false;
+var DeleteEdge = false;
 var graph = {"nodes": {}, "edges": {}};
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -37,6 +39,31 @@ function toggleDelete() {
     if (Delete == true) {       Delete = false;}
     else {      Delete = true;}
 }
+function hideAllSelectCubes(){
+        var allChildren = document.getElementById('graph').children;
+    for (var i=0; i<allChildren.length;i++){
+            var childChildren = allChildren[i].children;
+            for (var k=0; k<childChildren.length;k++){
+                childChildren[k].setAttribute('visible','false');
+            }
+        }
+}
+function toggleDeleteEdge() {
+    if (DeleteEdge == true) {       
+        DeleteEdge = false;
+        hideAllSelectCubes();
+    }
+    else {
+        DeleteEdge = true;
+        var allChildren = document.getElementById('graph').children;
+        for (var i=0; i<allChildren.length;i++){
+            var childChildren = allChildren[i].children;
+            for (var k=0; k<childChildren.length;k++){
+                childChildren[k].setAttribute('visible','true');
+            }
+        }
+    }
+}
 function addNode(name, randColor, pos) {
     cntNode = (name == null) ? ++cntNode : parseInt(name.substr(4));
     name = (name != null) ? name : "node" + cntNode;
@@ -54,7 +81,7 @@ function addNode(name, randColor, pos) {
         if (Delete == false) {    node.setAttribute('color', '#FFF');}
         else {    node.setAttribute('color', '#ff3f3f')}});
     node.addEventListener('mouseleave', function () {
-        node.setAttribute('color', randColor);
+    node.setAttribute('color', randColor);
     });
     node.addEventListener('click', function () {
         if (Delete == true) {
@@ -75,6 +102,10 @@ function addNode(name, randColor, pos) {
             }
         }
     });
+            graph["nodes"]['node'+cntNode] = {
+                "position":{x: pos.x, y: pos.y, z: pos.z},
+                "color":node.getAttribute('color')
+        }
     graphEl.appendChild(node);
 }
 function addEdge(name, nodeA, nodeB) {
@@ -97,28 +128,41 @@ function addEdge(name, nodeA, nodeB) {
             , lineWidthStyler: 1
             , color: '#55575b'
         });
-        edge.addEventListener('mouseenter', function () {
-            if (Delete == true) {
-                edge.setAttribute('color', '#ff3f3f');
-            }
-        });
-        edge.addEventListener('mouseleave', function () {
-            edge.setAttribute('color', '#55575b');
-        });
-        edge.addEventListener('click', function () {
-            if (Delete == true) {
-                var id = node.getAttribute('id');
-                $('#' + id).remove();
-                delete graph['edges'][id];
-                Delete = false;
-            }
-        });
         name = (name == null) ? node1.substr(4) + 'edge' + node2.substr(4) : name;
         edge.setAttribute('id', name);
         graph["edges"][node1.substr(4) + 'edge' + node2.substr(4)] = {
             "A": n0
             , "B": n1
         }
+        
+        var selectSquare = document.createElement('a-box');
+            selectSquare.setAttribute('opacity','.5');
+            selectSquare.setAttribute('width','.25');
+           selectSquare.setAttribute('height','.25');
+            selectSquare.setAttribute('depth','.25');
+            selectSquare.setAttribute('color','#FFF');
+            selectSquare.setAttribute('visible','false');
+            selectSquare.addEventListener('mouseenter',function(){
+                if(DeleteEdge){
+                    selectSquare.setAttribute('color','#FF3F3f');
+                }
+            })
+            selectSquare.addEventListener('mouseleave',function(){
+                selectSquare.setAttribute('color','#FFF');
+            })
+            selectSquare.addEventListener('click', function(){
+                if(DeleteEdge){
+                    var id = edge.getAttribute('id');
+                    $('#' + id).remove();
+                    delete graph['edges'][id];
+                    DeleteEdge = false;
+                    hideAllSelectCubes();
+                }
+            })
+            selectSquare.setAttribute('position',{x:(n0.x+n1.x)/2,
+                                                  y:(n0.y+n1.y)/2,
+                                                  z:(n0.z+n1.z)/2});
+        edge.appendChild(selectSquare);
         graphEl.appendChild(edge);
     }
 }
