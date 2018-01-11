@@ -70,7 +70,6 @@ function addNode(name, randColor, pos) {
     randColor = (randColor.charAt(0) != '#') ? getRandomColor() : randColor;
     var sceneEl = document.querySelector('a-scene');
     var graphEl = sceneEl.querySelector('#graph');
-    var cursorEl = sceneEl.querySelector('a-cursor');
     pos = (pos == null) ? sceneEl.querySelector('a-camera').getAttribute('position') : pos;
     var node = document.createElement('a-sphere');
     node.setAttribute('id', 'node' + cntNode);
