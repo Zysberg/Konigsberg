@@ -6,7 +6,7 @@
 Graphs are formally defined as a series of of objects that share relations. These objects are properly described as nodes, and the relationships depicting these nodes are called edges, or lines. Graphs are commonly used for information visualization, with extensive applications in cartography, linguistics, social network analysis, crime scene investigation analysis, neural networking, et cetera. The name of the project is a reference to the problem of the Seven Bridges of Konigsberg. The problem was to find the path through the city that would cross each of the bridges once, and only once. In 1736, Leonhard Euler concluded that there is no answer to the problem. His analysis and ideas in his paper, as well as Alexandre-Theophile Vandermonde's paper on the knight problem, were the early beginnings of graph theory and topology. Konigsberg is the historical name for the present-day city of Kaliningrad, Russia.
 
 
-Demo available at https://ichbinzachary.github.io/Demos/Konigsberg/index.html
+Demo available at https://zysberg.github.io/Demos/Konigsberg/index.html
 
 #### Controls
 W - Forward
